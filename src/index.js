@@ -12,6 +12,7 @@ import Card from './Containers/Card';
 
 import IntroCard from './Components/Cards/Intro';
 import YesNoCard from './Components/Cards/YesNo';
+import ScaleCard from './Components/Cards/Scale';
 import FinalCard from './Components/Cards/Final';
 import footer from './Components/Cards/Footer';
 
@@ -30,6 +31,7 @@ const parseSurvey = (json) => {
     responses[i] = null;
   }
   window.surveyName = survey.info.name;
+  console.dir(survey.items);
 
   IntroCard(survey.info.name);
 };
@@ -53,10 +55,14 @@ $(document).on('click', '.btnNext', () => {
     return;
   }
   let type = '';
-  let card = '';
+  let card = 'unknown type';
   if (question === 0) { type = 'first'; }
   if (survey.items[question].data.type === 'yesNo') {
     card = YesNoCard(survey.items[question].question, responses[question]);
+  }
+  if (survey.items[question].data.type === 'scale') {
+    card = ScaleCard(survey.items[question].question, responses[question],
+      survey.items[question].data.left, survey.items[question].data.right);
   }
   Card(window.surveyName, card, footer(type), true);
 });
@@ -69,6 +75,9 @@ $(document).on('click', '.btnPrev', () => {
   if (question === 0) { type = 'first'; }
   if (survey.items[question].data.type === 'yesNo') {
     card = YesNoCard(survey.items[question].question, responses[question]);
+  } else if (survey.items[question].data.type === 'scale') {
+    card = ScaleCard(survey.items[question].question, responses[question],
+      survey.items[question].data.left, survey.items[question].data.right);
   }
   Card(survey.info.name, card, footer(type), false);
   return 1;
@@ -78,4 +87,5 @@ $(document).on('click', '.btnResp', (e) => {
   $('.btnResp').removeClass(['btn-primary']).addClass('btn-outline-primary');
   $(e.currentTarget).removeClass('btn-outline-primary').addClass('btn-primary');
   responses[question] = $(e.currentTarget).html();
+  console.dir(responses);
 });
