@@ -1,13 +1,8 @@
-import Card from '../../Containers/Card';
-import footer from './Footer';
 import button from '../button';
 
-const YesNoCard = (question) => {
-  Card(window.surveyName,
-  `<p>${question}</p>
-  ${button('btn-outline-primary btn-lg btn-block btnResp', 'Yes')}
-  ${button('btn-outline-primary btn-lg btn-block btnResp', 'No')}
-  `, footer());
-};
+const YesNoCard = (question, response) => `<p>${question}</p>
+  ${button(`${response === 'Yes' ? 'btn-primary' : 'btn-outline-primary'} btn-lg btn-block btnResp`, 'Yes')}
+  ${button(`${response === 'No' ? 'btn-primary' : 'btn-outline-primary'} btn-lg btn-block btnResp`, 'No')}
+  `;
 
 export default YesNoCard;

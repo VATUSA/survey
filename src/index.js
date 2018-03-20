@@ -8,12 +8,16 @@ import api from './utils/api';
 import genApiUrl from './utils/apiurl';
 import queryString from './utils/querystring';
 
+import Card from './Containers/Card';
+
 import IntroCard from './Components/Cards/Intro';
 import YesNoCard from './Components/Cards/YesNo';
 import FinalCard from './Components/Cards/Final';
+import footer from './Components/Cards/Footer';
 
 const survey = { };
 let question = -1;
+const responses = [];
 
 const parseSurvey = (json) => {
   if (json.survey === undefined) {
@@ -21,7 +25,10 @@ const parseSurvey = (json) => {
   }
   survey.info = json.survey;
   survey.items = json.items;
-
+  let i;
+  for (i = 0; i < json.items.length; i += 1) {
+    responses[i] = null;
+  }
   window.surveyName = survey.info.name;
 
   IntroCard(survey.info.name);
@@ -45,10 +52,30 @@ $(document).on('click', '.btnNext', () => {
     FinalCard();
     return;
   }
+  let type = '';
+  let card = '';
+  if (question === 0) { type = 'first'; }
   if (survey.items[question].data.type === 'yesNo') {
-    YesNoCard(survey.items[question].question);
-    return;
+    card = YesNoCard(survey.items[question].question, responses[question]);
   }
-  // test.
+  Card(window.surveyName, card, footer(type), true);
+});
+
+$(document).on('click', '.btnPrev', () => {
+  question -= 1;
+  if (question < 0) question = 0;
+  let type = '';
+  let card = '';
+  if (question === 0) { type = 'first'; }
+  if (survey.items[question].data.type === 'yesNo') {
+    card = YesNoCard(survey.items[question].question, responses[question]);
+  }
+  Card(survey.info.name, card, footer(type), false);
   return 1;
+});
+
+$(document).on('click', '.btnResp', (e) => {
+  $('.btnResp').removeClass(['btn-primary']).addClass('btn-outline-primary');
+  $(e.currentTarget).removeClass('btn-outline-primary').addClass('btn-primary');
+  responses[question] = $(e.currentTarget).html();
 });
