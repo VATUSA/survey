@@ -1,0 +1,11 @@
+.bottomleft {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+#vsapp {
+  position: relative;
+  z-index: 999;
+}
