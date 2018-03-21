@@ -23,7 +23,7 @@ const Card = (title = null, body = null, footer = null, left = true) => {
 
   $('#vsapp')
     .hide('slide', { direction: (left) ? 'left' : 'right' }, 400, () => {
-      $('#vsapp').attr('class', 'col-sm-8 card')
+      $('#vsapp').attr('class', 'col-xs-12 col-md-8 card')
         .html(card)
         .show('slide', { direction: (left) ? 'right' : 'left' }, 400);
     });

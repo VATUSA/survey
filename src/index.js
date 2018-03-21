@@ -38,6 +38,21 @@ const parseSurvey = (json) => {
   IntroCard(survey.info.name);
 };
 
+const surveyFail = (r) => {
+  if (r.status === 409) {
+    alert('warning', 'This survey code has already been completed and cannot be completed again.  Thank you.');
+    return;
+  }
+  if (r.status === 404) {
+    alert('danger', `This survey code appears to be invalid. Please click the link provided in the email or contact
+      Data Services Manager for more assistance`);
+    return;
+  }
+  if (r.status === 500) {
+    alert('danger', 'There was a server error. Please try again later.');
+  }
+};
+
 const thanks = () => {
   Card(null, thankyou, footer('return'));
 };
@@ -50,7 +65,7 @@ $(document).ready(() => {
     alert('danger', 'Invalid Survey ID');
     return;
   }
-  api('get', `/v2/survey/${window.surveyId}`, {}, parseSurvey);
+  api('get', `/v2/survey/${window.surveyId}`, {}, parseSurvey, surveyFail);
 });
 
 /* Events */
