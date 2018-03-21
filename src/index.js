@@ -104,6 +104,10 @@ $(document).on('click', '.btnSubmit', () => {
   api('post', `/v2/survey/${window.surveyId}`, { responses: JSON.stringify(responses) }, thanks);
 });
 
+$(document).on('click', '.btnReturn', () => {
+  window.location = 'https://www.vatusa.net';
+});
+
 $(document).on('click', '.btnResp', (e) => {
   $('.btnResp').removeClass(['btn-primary']).addClass('btn-outline-primary');
   $(e.currentTarget).removeClass('btn-outline-primary').addClass('btn-primary');
