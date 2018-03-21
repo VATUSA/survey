@@ -21,12 +21,12 @@ module.exports = {
           use: [{
             loader: 'css-loader',
             options: {
-              sourceMap: true,
+              minimize: true,
             },
           }, {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
+              minimize: true,
             },
           }],
           publicPath: '../',
