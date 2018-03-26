@@ -16,7 +16,9 @@ const Scale = (question, response, left, right) => {
       ${card}
       <div class="col-1">&nbsp;</div>
     </div>
-    ${button(`${response === 'No Response' ? 'btn-primary' : 'btn-outline-primary'} btn-lg btn-block btnResp`, 'No Response')}
+    <div class="row">
+      <div class="offset-1 col-10">${button(`${response === 'No Response' ? 'btn-primary' : 'btn-outline-primary'} btn-lg btn-block btnResp`, 'No Response')}</div>
+    </div>
   `;
   return card;
 };
