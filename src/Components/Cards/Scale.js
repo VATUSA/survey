@@ -12,7 +12,12 @@ const Scale = (question, response, left, right) => {
   for (i = 1; i <= 5; i += 1) {
     card = `${card}<div class="col-2">${button(`${response === i ? 'btn-primary' : 'btn-outline-primary'} btn-lg btn-block btnResp`, i)}</div>`;
   }
-  card = `${card}<div class="col-1">&nbsp;</div></div>`;
+  card = `
+      ${card}
+      <div class="col-1">&nbsp;</div>
+    </div>
+    ${button(`${response === 'No Response' ? 'btn-primary' : 'btn-outline-primary'} btn-lg btn-block btnResp`, 'No Response')}
+  `;
   return card;
 };
 
